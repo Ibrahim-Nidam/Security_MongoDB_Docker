@@ -1,6 +1,7 @@
 spring:
+  mongodb:
+    embedded:
+      version: 7.0.2
   data:
     mongodb:
       uri: mongodb://localhost:27017/test-db
-  autoconfigure:
-    exclude: org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration
