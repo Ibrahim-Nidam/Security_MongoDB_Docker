@@ -4,7 +4,7 @@
     {
       "parameters": {
         "requestMethod": "POST",
-        "url": "http://app:8081/api/auth/login",
+        "url": "http://app:8080/api/auth/login",
         "jsonParameters": true,
         "options": {},
         "bodyParametersJson": {
@@ -40,7 +40,7 @@
     {
       "parameters": {
         "requestMethod": "GET",
-        "url": "http://app:8081/api/admin/packages?page=0&size=10",
+        "url": "http://app:8080/api/admin/packages?page=0&size=10",
         "jsonParameters": false,
         "options": {},
         "headerParametersUi": {

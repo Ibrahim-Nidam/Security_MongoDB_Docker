@@ -126,8 +126,8 @@ docker compose up -d --build
 ```
 
 **Services available:**
-- API → http://localhost:8081
-- Swagger UI → http://localhost:8081/swagger-ui/index.html
+- API → http://localhost:8080
+- Swagger UI → http://localhost:8080/swagger-ui/index.html
 - n8n (test automation) → http://localhost:5678
 
 ### Method 2: Local Development
@@ -147,7 +147,7 @@ docker run -d -p 27017:27017 --name sdg-mongo mongo:7.0
 ### 1. Login (get JWT)
 
 ```bash
-    curl -X POST http://localhost:8081/api/auth/login \
+    curl -X POST http://localhost:8080/api/auth/login \
       -H "Content-Type: application/json" \
       -d '{"login":"admin","password":"admin"}'
 ```
@@ -155,7 +155,7 @@ docker run -d -p 27017:27017 --name sdg-mongo mongo:7.0
 ### 2. Create a FRAGILE parcel (ADMIN)
 
 ```bash
-    curl -X POST http://localhost:8081/api/admin/colis \
+    curl -X POST http://localhost:8080/api/admin/colis \
       -H "Authorization: Bearer YOUR_JWT" \
       -H "Content-Type: application/json" \
       -d '{
