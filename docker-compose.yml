@@ -1,0 +1,54 @@
+services:
+  mongo:
+    image: mongo:7.0
+    container_name: sdg-mongo
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    environment:
+      MONGO_INITDB_DATABASE: sdg-db
+
+  app:
+    build: .
+    container_name: sdg-app
+    restart: unless-stopped
+    ports:
+      - "8081:8081"
+    environment:
+      SPRING_DATA_MONGODB_URI: mongodb://mongo:27017/sdg-db
+    depends_on:
+      - mongo
+
+  n8n:
+    image: n8nio/n8n
+    container_name: sdg-n8n
+    restart: unless-stopped
+    ports:
+      - "5678:5678"
+    environment:
+      - N8N_HOST=localhost
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=http
+      - N8N_BASIC_AUTH_ACTIVE=false
+
+      # ✅ Fix sqlite pool warning
+      - DB_SQLITE_POOL_SIZE=1
+
+      # ✅ Enable task runners (future default)
+      - N8N_RUNNERS_ENABLED=true
+
+      # ✅ Keep env variables accessible in Code nodes
+      - N8N_BLOCK_ENV_ACCESS_IN_NODE=false
+
+      # ✅ Disable bare git repos (recommended)
+      - N8N_GIT_NODE_DISABLE_BARE_REPOS=true
+
+    volumes:
+      - n8n_data:/home/node/.n8n
+
+
+volumes:
+  mongo_data:
+  n8n_data:
