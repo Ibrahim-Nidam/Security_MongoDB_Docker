@@ -11,5 +11,4 @@ class SdgApplicationTests {
     @Test
     void contextLoads() {
     }
-
 }
