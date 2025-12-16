@@ -22,17 +22,6 @@ This project enables intelligent management of parcels with **three distinct typ
 
 ---
 
-## Useful Links
-
-- **[GitHub Repository](https://github.com/YOUR_USERNAME/SDG)** – Full source code
-- **[Swagger UI](http://localhost:8080/swagger-ui/index.html)** – Live API documentation
-- **[n8n Workflow](http://localhost:5678)** – Automated API testing (bonus)
-- **[Use Case Diagram](./docs/Gestion_Des_Colis_Use_Case.png)** – System actors and interactions
-- **[Class Diagram](./docs/Gestion_Des_Colis.png)** – Complete class architecture
-- **Jenkins Pipeline** → `Jenkinsfile` at project root
-
----
-
 ## Technologies Used
 
 - **Java 21** & **Spring Boot 3.3.7**

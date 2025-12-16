@@ -3,9 +3,8 @@ package com.logistics.sdg;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
-class SdgApplicationTests {
 
+class SdgApplicationTests {
     @Test
     void contextLoads() {
     }
