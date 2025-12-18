@@ -21,6 +21,16 @@ services:
     depends_on:
       - mongo
 
+  jenkins:
+    build:
+      context: ./jenkins
+    container_name: sdg-jenkins
+    ports:
+      - "8081:8080"
+    volumes:
+      - jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+
   n8n:
     image: n8nio/n8n
     container_name: sdg-n8n
@@ -52,3 +62,4 @@ services:
 volumes:
   mongo_data:
   n8n_data:
+  jenkins_home:
