@@ -2,8 +2,8 @@ pipeline {
     agent any
 
     tools {
-        jdk 'JDK21'           // name you will configure in Jenkins Global Tools
-        maven 'Maven3'        // name you will configure in Jenkins Global Tools
+        jdk 'JDK21'
+        maven 'Maven3'
     }
 
     stages {
@@ -30,27 +30,6 @@ pipeline {
                 sh 'docker build -t sdg-app:latest .'
             }
         }
-
-        stage('Cleanup Old Containers') {
-            steps {
-                sh '''
-                    # First try normal docker compose down
-                    docker compose down --remove-orphans || true
-
-                    # Force-remove any containers that might still exist with our fixed names
-                    docker rm -f sdg-app sdg-mongo sdg-jenkins sdg-n8n || true
-
-                    # Optional: Clean up dangling images from previous builds (keeps things tidy)
-                    docker image prune -f || true
-                '''
-            }
-        }
-
-        stage('Start with Docker Compose') {
-            steps {
-                sh 'docker compose up -d'
-            }
-        }
     }
 
     post {
@@ -59,7 +38,10 @@ pipeline {
             archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
         }
         success {
-            echo 'SDG PROJECT SUCCESSFULLY BUILT AND DEPLOYED!'
+            echo 'SDG APP IMAGE SUCCESSFULLY BUILT! Run "docker compose restart app" to apply the update.'
+        }
+        failure {
+            echo 'Build failed. Check the logs.'
         }
     }
 }
