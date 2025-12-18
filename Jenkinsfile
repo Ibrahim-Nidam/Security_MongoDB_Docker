@@ -31,9 +31,18 @@ pipeline {
             }
         }
 
-        stage('Stop & Remove old container (if exists)') {
+        stage('Cleanup Old Containers') {
             steps {
-                sh 'docker compose down || true'
+                sh '''
+                    # First try normal docker compose down
+                    docker compose down --remove-orphans || true
+
+                    # Force-remove any containers that might still exist with our fixed names
+                    docker rm -f sdg-app sdg-mongo sdg-jenkins sdg-n8n || true
+
+                    # Optional: Clean up dangling images from previous builds (keeps things tidy)
+                    docker image prune -f || true
+                '''
             }
         }
 
