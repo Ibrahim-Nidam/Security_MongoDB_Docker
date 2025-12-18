@@ -30,6 +30,10 @@ services:
     volumes:
       - jenkins_home:/var/jenkins_home
       - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - DOCKER_HOST=unix:///var/run/docker.sock
+    # Ensure jenkins user can access docker socket
+    user: root
 
   n8n:
     image: n8nio/n8n
@@ -42,22 +46,12 @@ services:
       - N8N_PORT=5678
       - N8N_PROTOCOL=http
       - N8N_BASIC_AUTH_ACTIVE=false
-
-      # ✅ Fix sqlite pool warning
       - DB_SQLITE_POOL_SIZE=1
-
-      # ✅ Enable task runners (future default)
       - N8N_RUNNERS_ENABLED=true
-
-      # ✅ Keep env variables accessible in Code nodes
       - N8N_BLOCK_ENV_ACCESS_IN_NODE=false
-
-      # ✅ Disable bare git repos (recommended)
       - N8N_GIT_NODE_DISABLE_BARE_REPOS=true
-
     volumes:
       - n8n_data:/home/node/.n8n
-
 
 volumes:
   mongo_data:
